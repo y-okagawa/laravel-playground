@@ -42,7 +42,7 @@ jobs:
       - run:
           name: composer install
           command: |
-            docker-compose -f ./docker-compose.test.yml --no-deps run app composer install
+            docker-compose -f ./docker-compose.test.yml run --no-deps app composer install
       - save_cache:
           paths:
             - ./vendor
