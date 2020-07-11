@@ -37,7 +37,21 @@ jobs:
           key: v1-{{ .Branch }}-{{ epoch }}
           paths:
             - /caches/app.tar
-      - run:
-          name: Run tests
-          command: |
-            docker-compose -f up
+    phpunit:
+      working_directory: /app
+      steps:
+        - checkout
+        - setup_remote_docker
+        - run:
+            name: Run tests
+            command: |
+              docker-compose run app ./vendor/bin/phpunit
+  workflows:
+    version: 2
+    build_and_test:
+      jobs:
+        - build
+        - phpunit
+          requires:
+            - build
+
