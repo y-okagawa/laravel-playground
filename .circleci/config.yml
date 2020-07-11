@@ -46,12 +46,12 @@ jobs:
             name: Run tests
             command: |
               docker-compose run app ./vendor/bin/phpunit
-  workflows:
-    version: 2
-    build_and_test:
-      jobs:
-        - build
-        - phpunit:
-            requires:
-              - build
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
+      - phpunit:
+          requires:
+            - build
 
