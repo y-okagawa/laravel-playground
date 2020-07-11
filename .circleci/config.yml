@@ -38,6 +38,8 @@ jobs:
           paths:
             - /caches/app.tar
   phpunit:
+    docker:
+      - image: docker:17.05.0-ce-git
     working_directory: /app
     steps:
       - checkout
