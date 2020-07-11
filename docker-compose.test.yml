@@ -7,14 +7,14 @@ services:
     command: /bin/sh -c "/usr/local/sbin/php-fpm --allow-to-run-as-root & /usr/sbin/nginx -g 'daemon off;'"
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html:delegated
+      - ./:/var/www/html
     links:
       - mysql
   node:
     image: node:14
     working_dir: /var/www/html
     volumes:
-      - ./:/var/www/html:delegated
+      - ./:/var/www/html
     command: /bin/sh -c "yarn install && yarn watch-poll"
   mysql:
     image: mysql:8
