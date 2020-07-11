@@ -1,15 +1,8 @@
 version: "3"
 services:
   app:
-    build: docker
-    ports:
-      - 80:80
+    image: app
     command: /bin/sh -c "/usr/local/sbin/php-fpm --allow-to-run-as-root & /usr/sbin/nginx -g 'daemon off;'"
-    working_dir: /var/www/html
-    volumes:
-      - ./:/var/www/html
-    links:
-      - mysql
   node:
     image: node:14
     working_dir: /var/www/html
