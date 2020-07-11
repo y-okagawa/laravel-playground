@@ -1,0 +1,33 @@
+version: "3"
+services:
+  app:
+    build: docker
+    ports:
+      - 80:80
+    command: /bin/sh -c "/usr/local/sbin/php-fpm --allow-to-run-as-root & /usr/sbin/nginx -g 'daemon off;'"
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html:delegated
+    links:
+      - mysql
+  node:
+    image: node:14
+    working_dir: /var/www/html
+    volumes:
+      - ./:/var/www/html:delegated
+    command: /bin/sh -c "yarn install && yarn watch-poll"
+  mysql:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: playground
+      MYSQL_USER: playground
+      MYSQL_PASSWORD: playground
+      TZ: 'Asia/Tokyo'
+    command: mysqld --character-set-server=utf8mb4 --collation-server=utf8mb4_unicode_ci
+    volumes:
+      - ./.data:/var/lib/mysql:delegated
+      - ./docker/mysql/conf.d/my.cnf:/etc/mysql/conf.d/my.cnf:delegated
+      - ./docker/mysql/init:/docker-entrypoint-initdb.d:delegated
+    ports:
+      - 3306:3306
