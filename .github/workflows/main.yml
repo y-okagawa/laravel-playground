@@ -26,6 +26,8 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: exec phpunit
+        shell: bash
         run: |
-          docker-compose up -d
+          docker-compose up -f docker-compose.ci.yml -d --build
+          docker-compose exec -T app composer install
           docker-compose exec -T app ./vendor/bin/phpunit
