@@ -30,5 +30,4 @@ jobs:
         run: |
           docker-compose -f docker-compose.ci.yml up -d --build
           docker-compose -f docker-compose.ci.yml exec -T app composer install
-          docker-compose -f docker-compose.ci.yml exec -T app php artisan key:generate
           docker-compose -f docker-compose.ci.yml exec -T app ./vendor/bin/phpunit

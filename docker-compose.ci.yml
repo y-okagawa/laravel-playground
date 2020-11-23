@@ -9,6 +9,8 @@ services:
     working_dir: /var/www/html
     volumes:
       - ./:/var/www/html
+    environment:
+      APP_KEY: "base64:t+VMAZzL3stMlHCUG1G8hGJV3gZSm7c4k+iFVsna+QI="
     links:
       - mysql
   node:
