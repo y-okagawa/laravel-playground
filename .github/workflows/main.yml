@@ -28,6 +28,6 @@ jobs:
       - name: exec phpunit
         shell: bash
         run: |
-          docker-compose up -f docker-compose.ci.yml -d --build
+          docker-compose -f docker-compose.ci.yml up -d --build
           docker-compose exec -T app composer install
           docker-compose exec -T app ./vendor/bin/phpunit
